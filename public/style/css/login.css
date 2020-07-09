@@ -1,0 +1,59 @@
+body{
+    font-family:'微软雅黑';
+    margin:0 auto;
+    min-width:980px;
+    background-color:#1c77ac;
+    background-image:url("/style/image/light.png");
+    background-repeat:no-repeat;
+    background-position:center top;
+    overflow:hidden;}
+ul{
+    display:block;
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+li{
+    display:block;
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+.loginbox ul{
+    margin-top:88px;
+    margin-left:285px;
+}
+.loginbox ul li{margin-bottom:25px;}
+.loginbox ul li label{
+    color:#687f92;
+    padding-left:25px;
+}
+.loginbox ul li label a{
+    color:#687f92;
+}
+.loginbox ul li label a:hover{
+    color:#3d96c9;
+}
+.loginbox ul li label input{
+    margin-right:5px;
+}
+.loginuser{
+    width:299px;
+    height:48px;
+    background:url("/style/image/loginuser.png") no-repeat;
+    border:none;
+    line-height:48px;
+    padding-left:44px;
+    margin-right:50px;
+    font-size:14px;
+    font-weight:bold;}
+.loginpwd{margin-right:50px;width:299px; height:48px; background:url("/style/image/loginpassword.png") no-repeat; border:none;line-height:48px; padding-left:44px; font-size:14px; color:#90a2bc;}
+.loginbtn{width:111px;height:35px; background:url("/style/image/buttonbg.png") repeat-x; font-size:14px; font-weight:bold; color:#fff;cursor:pointer; line-height:35px;}
+.loginbm{height:50px; line-height:50px; text-align:center; background:url("/style/image/loginbg2.png") repeat-x;position:absolute; bottom:0; width:100%; color:#0b3a58;}
+.loginbm a{font-weight:bold;color:#0b3a58;}
+.loginbm a:hover{color:#fff;}
+.loginbox{
+    margin-left:42%;
+    margin-top:10%;
+    background:url("/style/image/logininfo.png") no-repeat; border:none;
+}

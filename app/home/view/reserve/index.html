@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线客房预订</title>
+    <link href="/style/css/main.css" rel="stylesheet" type="text/css">
+    <script src="/style/js/WdatePicker.js"></script>
+    <script src="/style/js/jquery.min.js"></script>
+    <script src="/style/js/layer.js"></script>
+
+
+</head>
+<body>
+<div class="main_box">
+    <b>在线客房预订</b>
+    <table class="ke-zeroborder">
+        <tbody>
+        <tr height="30">
+            <td width="200">入住时间：<input  onclick="WdatePicker({minDate:'{$minDate}',dateFmt:'yyyy-MM-dd',maxDate:'{$maxDate}',dateFmt:'yyyy-MM-dd'})"  class="calendar" id="start_date" name="start_date" onfocus="" readonly=""> </td>
+            <td width="200">退房时间：<input  onclick="WdatePicker({minDate:'{$minDate}',dateFmt:'yyyy-MM-dd',maxDate:'{$maxDate}',dateFmt:'yyyy-MM-dd'})"  class="calendar" id="end_date" name="end_date" onfocus="" readonly=""></td>
+        </tr>
+        <tr height="30">
+            <td colspan="2">房间类型：
+            <select style="font-size:12px;" id="house_type">
+                {foreach name="house_type" item="vo"}
+                    <option value="{$vo['type']}">
+                        {$vo['des']}
+                    </option>
+                {/foreach}
+            </select>
+            </td>
+        </tr>
+        <tr height="30">
+            <td>预订间数：<select id="house_num" > <option value="1" selected="selected">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option></select> </td>
+            <td></td>
+        </tr>
+        <tr height="30">
+            <td> 联  系 人：<input id="contact" maxlength="10" width="100" style="width:100px"></td>
+            <td>联系电话：<input id="phone" maxlength="15" style="width:100px"></td>
+        </tr>
+        <tr height="30">
+            <td colspan="2">备注内容：<input id="remark" style="width:300px;height:30px"></td>
+        </tr>
+        </tbody>
+    </table>
+        <br>
+        <input type="submit" value="提交订单" id="submit" onclick="submit()">
+
+</div>
+</body>
+<script>
+    function submit(){
+        //防止重复点击
+        $("#submit").attr({ disabled: "disabled" });
+
+        var start_date = $("#start_date").val();
+        var end_date = $("#end_date").val();
+        var house_type = $("#house_type").val();
+        var house_num = $("#house_num").val();
+        var contact = $("#contact").val();
+        var phone = $("#phone").val();
+        var remark= $("#phone").val();
+
+        $.ajax({
+            url: "__URL__/reserve",
+            type: "post",
+            data:{'start_date':start_date,'end_date':end_date,'house_type':house_type,'house_num':house_num,'contact':contact,'phone':phone,'remark':remark},
+            dataType: "json",
+            success:function(d){
+                layer.msg(d.msg,{time:2000});
+                if(d.code === 0){
+                    $("#submit").removeAttr("disabled");
+                }else{
+                    setTimeout(function(){location.reload()}, 1000); //1秒刷新
+                }
+            },
+            error:function () {
+                layer.msg("提交失败",{time:2000});
+            }
+        });
+    }
+</script>
+</html>

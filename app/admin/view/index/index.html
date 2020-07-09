@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+<!--    <link href="/style/css/login.css" rel="stylesheet" type="text/css">-->
+</head>
+<style>
+
+    #area_list{
+        margin-left:10%;
+        margin-top:100px;
+        width:70%;
+    }
+    #area_list td,#area_list th{
+        height:25px;
+        width:200px;
+        text-align:left;
+        padding-top:5px;
+        padding-bottom:5px;
+        border-bottom:1px solid #E3E6EB;
+    }
+
+    #area_list tr{
+    }
+    #area_list input{
+        border:none;
+        width:100%;
+        height:25px;
+        line-height:25px;
+    }
+
+    .pagination{
+        margin-top:50px;
+        position: absolute;
+        left: 20%;
+    }
+
+</style>
+<body>
+
+<table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <th class="line_l">入住时间</th>
+        <th class="line_l">退房时间</th>
+        <th class="line_l">房间类型</th>
+        <th class="line_l">预订间数</th>
+        <th class="line_l">联 系 人</th>
+        <th class="line_l">	联系电话</th>
+        <th class="line_l">备注内容</th>
+        <th class="line_l">操作</th>
+    </tr>
+    {foreach name="list" item="vo" empty="暂无数据"}
+        <tr>
+            <td>{$vo['start_date']}</td>
+            <td>{$vo['end_date']}</td>
+            <td>{$type_conf[$vo['house_type']]}</td>
+            <td>{$vo['house_num']}</td>
+            <td>{$vo['contact']}</td>
+            <td>{$vo['phone']}</td>
+            <td>{$vo['remark']|default='无'}</td>
+            <td>
+                <a class="caoedit" href="__URL__/edit?id={$vo['id']}">处理</a>
+            </td>
+        </tr>
+    {/foreach}
+</table>
+
+
+    <div>{$page}</div>
+
+
+
+
+</body>
+
+
+
+</html>

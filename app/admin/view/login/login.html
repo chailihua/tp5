@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link href="/style/css/login.css" rel="stylesheet" type="text/css">
+    <script src="/style/js/jquery.min.js"></script>
+    <script src="/style/js/layer.js"></script>
+</head>
+<body>
+
+<div class="loginbody">
+    <div class="loginbox" style="position: absolute; left: -194.5px;">
+        <ul>
+            <li><input type="text" class="loginuser" id="user_name" placeholder="请输入用户名"></li>
+            <li><input type="password" class="loginpwd" id="password" placeholder="请输入密码"></li>
+            <li><input type="button" class="loginbtn" value="登录" onclick="login()">
+        </ul>
+    </div>
+</div>
+</body>
+
+<script>
+    function login() {
+        //防止重复点击
+        $(".loginbtn").attr({disabled: "disabled"});
+
+        var user_name = $("#user_name").val();
+        var password = $("#password").val();
+        $.ajax({
+            url: "__URL__/login",
+            type: "post",
+            data:{'user_name':user_name,'password':password},
+            dataType: "json",
+            success:function(d){
+                if(d.code === 0){
+                    $(".loginbtn").removeAttr("disabled");
+                    layer.msg(d.msg,{time:2000});
+                }else{
+                    window.location.href = "/admin/index/index";
+                }
+            },
+            error:function () {
+                layer.msg("请求失败",{time:2000});
+            }
+        });
+    }
+
+</script>
+
+</html>
