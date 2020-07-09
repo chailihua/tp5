@@ -59,7 +59,7 @@
         var house_num = $("#house_num").val();
         var contact = $("#contact").val();
         var phone = $("#phone").val();
-        var remark= $("#phone").val();
+        var remark= $("#remark").val();
 
         $.ajax({
             url: "__URL__/reserve",
@@ -75,6 +75,7 @@
                 }
             },
             error:function () {
+                $("#submit").removeAttr("disabled");
                 layer.msg("提交失败",{time:2000});
             }
         });

@@ -48,7 +48,7 @@ class Reserve extends Controller
             }
 
             $error = '';
-            $reg = '/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[10-31]{2})$/';
+            $reg = '/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]|)$/';
             $reg_phone = '/^\d{6,11}$/';
             if(!preg_match($reg, $post['start_date'])){
                 $error = '入住时间格式错误';

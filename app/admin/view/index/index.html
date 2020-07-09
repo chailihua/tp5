@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
-<!--    <link href="/style/css/login.css" rel="stylesheet" type="text/css">-->
+    <title>房间预定列表</title>
+    <script src="/style/js/jquery.min.js"></script>
+    <script src="/style/js/layer.js"></script>
 </head>
 <style>
 
@@ -35,10 +36,33 @@
         position: absolute;
         left: 20%;
     }
+    #house_id{
+        display:none;
+    }
+    .deal_box{
+        font-size:15px;
+        width:200px;
+        margin-bottom: 100px;
+        margin-left:5px;
+    }
+    .deal_box select{
+        width:120px;
+        height:30px;
+    }
+    .dealbtn{
+        width:50px;
+        height:30px;
+        border-radius:5px;
+        margin-left:20px;
+        margin-top:3px;
+    }
 
 </style>
 <body>
 
+{if condition="$list->isEmpty()"}
+<h5 class='text-center text-muted'>暂无记录</h5>
+{else/}
 <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <th class="line_l">入住时间</th>
@@ -47,6 +71,7 @@
         <th class="line_l">预订间数</th>
         <th class="line_l">联 系 人</th>
         <th class="line_l">	联系电话</th>
+        <th class="line_l">状态</th>
         <th class="line_l">备注内容</th>
         <th class="line_l">操作</th>
     </tr>
@@ -58,22 +83,67 @@
             <td>{$vo['house_num']}</td>
             <td>{$vo['contact']}</td>
             <td>{$vo['phone']}</td>
+            <td>{$status_conf[$vo['status']]}</td>
             <td>{$vo['remark']|default='无'}</td>
             <td>
-                <a class="caoedit" href="__URL__/edit?id={$vo['id']}">处理</a>
+                <input type="button"  class="caoedit" onclick="deal({$vo['id']})" value="处理">
             </td>
         </tr>
     {/foreach}
 </table>
 
+<div>{$page}</div>
 
-    <div>{$page}</div>
+{/if}
 
 
-
+<input id="house_id" val="0"/>
 
 </body>
+<script>
 
+    function deal(house_id) {
+        $("#house_id").val(house_id)
+        layer.open({
+            type: 1,
+            content: '<div id="house_deal">\n' +
+                '    <div class="deal_box">\n' +
+                '        <select style="font-size:12px;" class="house_status">\n' +
+                '            {foreach name="status_conf" key="key" item="val"}\n' +
+                '            <option value="{$key}">\n' +
+                '                {$val}\n' +
+                '            </option>\n' +
+                '            {/foreach}\n' +
+                '        </select>\n' +
+                '        <input type="button" class="dealbtn" value="确认" onclick="dealconfirm()">\n' +
+                '    </div>\n' +
+                '</div>'
+        });
+    }
+    function dealconfirm(){
+        var house_id = $("#house_id").val();
+        var status = $(".house_status option:selected").val();
+        $(".dealbtn").attr({ disabled: "disabled" });
+        $.ajax({
+            url: "__URL__/editstatus",
+            type: "post",
+            data:{'house_id':house_id,'status':status},
+            dataType: "json",
+            success:function(d){
+                layer.msg(d.msg,{time:2000});
+                if(d.code === 0){
+                    $(".dealbtn").removeAttr("disabled");
+                }else{
+                    setTimeout(function(){location.reload()}, 1000); //1秒刷新
+                }
+            },
+            error:function () {
+                $(".dealbtn").removeAttr("disabled");
+                layer.msg("请求失败",{time:2000});
+            }
+        });
+    }
+</script>
 
 
 </html>

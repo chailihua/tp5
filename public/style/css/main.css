@@ -1,8 +1,12 @@
 .main_box{
-    float:left;
     width:400px;
     height:250px;
     background:#eeeee5;
     padding:10px;
-    margin-top:0px
+    margin-top:10%;
+    margin-left:35%;
+}
+
+#submit{
+   margin-left:38%;
 }
