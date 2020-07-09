@@ -10,3 +10,17 @@
 sql文件在根目录:
 web_employ.sql
 
+数据库配置文件：app/database.php
+
+    // 服务器地址
+    'hostname'        => '127.0.0.1',
+
+    // 数据库名
+    'database'        => 'sanj',
+
+    // 用户名
+    'username'        => 'root',
+
+    // 密码
+    'password'        => 'root',
+
